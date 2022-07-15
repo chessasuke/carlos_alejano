@@ -1,5 +1,7 @@
 import 'package:carlos_alejano_v2/firebase_options.dart';
 import 'package:carlos_alejano_v2/generated/i18n.dart';
+import 'package:carlos_alejano_v2/services/analytics/providers/analytics_provider.dart';
+import 'package:carlos_alejano_v2/services/analytics/trackers/firebase_analytics_tracker.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -15,14 +17,15 @@ void main() async {
   runApp(const ProviderScope(child: MyApp()));
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends ConsumerStatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
   MyAppState createState() => MyAppState();
 }
 
-class MyAppState extends State<MyApp> {
+class MyAppState extends ConsumerState<MyApp> {
+  late final FirebaseAnalyticsTracker firebaseAnalyticsTracker;
   final AppRouterDelegate _routerDelegate = AppRouterDelegate();
   final AppRouteInformationParser _routeInformationParser =
       AppRouteInformationParser();
@@ -30,6 +33,7 @@ class MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
+    firebaseAnalyticsTracker = FirebaseAnalyticsTracker(ref.read(analyticsProvider));
   }
 
   @override
@@ -40,7 +44,7 @@ class MyAppState extends State<MyApp> {
       color: Colors.grey,
       routerDelegate: _routerDelegate,
       routeInformationParser: _routeInformationParser,
-       localizationsDelegates: const [
+      localizationsDelegates: const [
         S.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate

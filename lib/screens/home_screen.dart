@@ -2,6 +2,9 @@ import 'package:carlos_alejano_v2/appbar/widgets/appbar_row_items.dart';
 import 'package:carlos_alejano_v2/common/constants/app_colors.dart';
 import 'package:carlos_alejano_v2/common/constants/display_properties.dart';
 import 'package:carlos_alejano_v2/common/widgets/page_view_content.dart';
+import 'package:carlos_alejano_v2/services/analytics/events/actions_events.dart';
+import 'package:carlos_alejano_v2/services/analytics/models/event.dart';
+import 'package:carlos_alejano_v2/services/analytics/providers/analytics_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -14,6 +17,12 @@ class HomeScreen extends ConsumerStatefulWidget {
 
 class HomeScreenState extends ConsumerState<HomeScreen> {
   late Size screenSize;
+
+  @override
+  void initState() {
+    super.initState();
+    _trackEnableNotifications(Event(name: ActionsEvents.appInitialized.name));
+  }
 
   @override
   void didChangeDependencies() {
@@ -33,7 +42,7 @@ class HomeScreenState extends ConsumerState<HomeScreen> {
         // appBar: AppAppBar(isSmallScreen: screenSize.width <= 600),
         body: Stack(
           children: [
-             Align(
+            Align(
               alignment: Alignment.bottomCenter,
               child: SizedBox(
                 height: screenSize.height,
@@ -59,5 +68,9 @@ class HomeScreenState extends ConsumerState<HomeScreen> {
         // ),
       ),
     );
+  }
+
+  void _trackEnableNotifications(Event event) {
+    ref.read(analyticsProvider).trackEvent(event);
   }
 }

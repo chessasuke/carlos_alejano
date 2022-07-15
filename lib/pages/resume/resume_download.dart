@@ -3,17 +3,23 @@ import 'package:carlos_alejano_v2/common/constants/till_remote_config_is_set.dar
 import 'package:carlos_alejano_v2/common/text/text_style.dart';
 import 'package:carlos_alejano_v2/common/utils/utils.dart';
 import 'package:carlos_alejano_v2/generated/i18n.dart';
+import 'package:carlos_alejano_v2/services/analytics/events/actions_events.dart';
+import 'package:carlos_alejano_v2/services/analytics/models/event.dart';
+import 'package:carlos_alejano_v2/services/analytics/providers/analytics_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ResumeDownload extends StatelessWidget {
+class ResumeDownload extends ConsumerWidget {
   const ResumeDownload({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return InkWell(
       hoverColor: Colors.transparent,
-      onTap: () async =>
-          await Utils.launchURL(TillRemoteConfigIsSet.pdfResumeLink),
+      onTap: () async {
+        _trackEnableNotifications(event: Event(name: ActionsEvents.clickedPDF.name), ref: ref);
+        await Utils.launchURL(TillRemoteConfigIsSet.pdfResumeLink);
+      },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -32,5 +38,9 @@ class ResumeDownload extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void _trackEnableNotifications({required Event event, required WidgetRef ref}) {
+    ref.read(analyticsProvider).trackEvent(event);
   }
 }

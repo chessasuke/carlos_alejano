@@ -1,0 +1,4 @@
+enum ActionsEvents {
+  appInitialized,
+  clickedPDF,
+}
