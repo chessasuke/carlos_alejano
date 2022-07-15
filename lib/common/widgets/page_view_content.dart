@@ -15,8 +15,7 @@ class AppPageView extends ConsumerStatefulWidget {
 class _AppPageViewState extends ConsumerState<AppPageView> {
   late final ScrollController _scrollController;
 
-  late final GlobalKey aboutSectionKey;
-  late final GlobalKey resumeSectionKey;
+  late final GlobalKey _aboutSectionKey;
 
   late final AppbarMenuPageItem currentPage;
   late final List<Widget> _pages;
@@ -24,13 +23,12 @@ class _AppPageViewState extends ConsumerState<AppPageView> {
   @override
   void initState() {
     super.initState();
-    aboutSectionKey = GlobalKey();
-    resumeSectionKey = GlobalKey();
+    _aboutSectionKey = GlobalKey();
     _scrollController = ScrollController();
 
     _pages = [
-      AboutPage(key: aboutSectionKey),
-      ResumePage(key: resumeSectionKey),
+      AboutPage(key: _aboutSectionKey),
+      const ResumePage(),
     ];
 
     ref.read(pageClickNotifier).addListener((_tapAppbarListener));
@@ -39,24 +37,36 @@ class _AppPageViewState extends ConsumerState<AppPageView> {
   @override
   Widget build(BuildContext context) {
     return NotificationListener<ScrollNotification>(
-        onNotification: _onNotification,
-        child: SingleChildScrollView(
-          controller: _scrollController,
-          child: Column(
-            children: _pages,
-          ),
-        )
-        // CustomScrollView(
-        //   controller: _scrollController,
-        //   slivers: [
-        //     SliverList(
-        //       delegate: SliverChildListDelegate.fixed(
-        //         _pages,
-        //       ),
-        //     )
-        //   ],
-        // ),
-        );
+      onNotification: _onNotification,
+      child:
+
+          /// USING [SingleChildScrollView] WE CAN FORCE TO BUILD ALL THE CHILDREN
+          /// AND WE CAN GET THE CONTEXT FOR NOT VISIBLE CHILDREN BUT IS VERY BAD
+          /// PERFORMANCE WISE
+          /// THERE IS NO OTHER WAY TO SCROLL TO A WIDGET THAT IS NOT VISIBLE
+          /// BUT SINCE WE ONLY HAVE TWO, AND ON INIT THE FIRST ONE IS ALWAYS VISIBLE
+          /// WE CAN GET THE SIZE OF THE FIRST ONE TO GET THE POSITION OF THE SECOND PAGE
+          /// THIS WAY AVOID TO USE [SingleChildScrollView] WHICH MAKES BROWSING IN MOBILE
+          /// VERY LAGGY
+
+          // SingleChildScrollView(
+          //   controller: _scrollController,
+          //   child: Column(
+          //     children: _pages,
+          //   ),
+          // ),
+
+          CustomScrollView(
+        controller: _scrollController,
+        slivers: [
+          SliverList(
+            delegate: SliverChildListDelegate.fixed(
+              _pages,
+            ),
+          )
+        ],
+      ),
+    );
   }
 
   bool _onNotification(ScrollNotification scrollNotification) {
@@ -79,13 +89,13 @@ class _AppPageViewState extends ConsumerState<AppPageView> {
 
   void _tapAppbarListener() {
     final itemClicked = ref.read(pageClickNotifier).currentPage;
-   switch (itemClicked) {
+    switch (itemClicked) {
       case AppbarMenuPageItem.about:
-        _scrollToPosition(_getWidgetYPosition(aboutSectionKey));
+        _scrollToPosition(0);
         break;
       case AppbarMenuPageItem.resume:
-        final position = _getWidgetYPosition(resumeSectionKey);
-        _scrollToPosition(position);
+        final aboutHeight = _getWidgetSize(_aboutSectionKey);
+        _scrollToPosition(aboutHeight);
         break;
     }
   }
@@ -100,15 +110,14 @@ class _AppPageViewState extends ConsumerState<AppPageView> {
     }
   }
 
-  double? _getWidgetYPosition(GlobalKey key) {
+  double? _getWidgetSize(GlobalKey key) {
     RenderBox? box = key.currentContext?.findRenderObject() as RenderBox?;
-    Offset position = box?.localToGlobal(Offset.zero) ?? Offset.zero;
-    return position.dy;
+    double? position = box?.size.height;
+    return position;
   }
 
   @override
   void dispose() {
-    _scrollController.removeListener(_tapAppbarListener);
     _scrollController.dispose();
     super.dispose();
   }

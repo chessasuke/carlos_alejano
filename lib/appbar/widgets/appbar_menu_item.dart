@@ -5,13 +5,13 @@ class AppBarMenuItem extends StatefulWidget {
   const AppBarMenuItem({
     Key? key,
     required this.text,
-    required this.onTap,
+    this.onTap,
     required this.isSelected,
   }) : super(key: key);
 
   final String text;
   final bool isSelected;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
 
   @override
   AppBarMenuItemState createState() => AppBarMenuItemState();
@@ -37,7 +37,8 @@ class AppBarMenuItemState extends State<AppBarMenuItem> {
           MouseRegion(
             onEnter: (onEnter) => setState(() => menuWidth = size.width),
             onExit: (onExit) => setState(() => menuWidth = 0),
-            child: InkWell(
+            child: 
+            InkWell(
               hoverColor: Colors.transparent,
               onTap: widget.onTap,
               child: Text(

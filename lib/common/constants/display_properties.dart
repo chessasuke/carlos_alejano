@@ -4,7 +4,7 @@ import 'package:timeline_tile/timeline_tile.dart';
 
 class DisplayProperties {
   /// AppBar
-  static const double kAppBarSize = 75;
+  static const double kAppBarSize = 58;
 
   /// Deafult Main Content Padding
   static const double mainHorizontalPadding = 20.0;
