@@ -39,18 +39,24 @@ class _AppPageViewState extends ConsumerState<AppPageView> {
   @override
   Widget build(BuildContext context) {
     return NotificationListener<ScrollNotification>(
-      onNotification: _onNotification,
-      child: CustomScrollView(
-        controller: _scrollController,
-        slivers: [
-          SliverList(
-            delegate: SliverChildListDelegate.fixed(
-              _pages,
-            ),
-          )
-        ],
-      ),
-    );
+        onNotification: _onNotification,
+        child: SingleChildScrollView(
+          controller: _scrollController,
+          child: Column(
+            children: _pages,
+          ),
+        )
+        // CustomScrollView(
+        //   controller: _scrollController,
+        //   slivers: [
+        //     SliverList(
+        //       delegate: SliverChildListDelegate.fixed(
+        //         _pages,
+        //       ),
+        //     )
+        //   ],
+        // ),
+        );
   }
 
   bool _onNotification(ScrollNotification scrollNotification) {
@@ -73,8 +79,7 @@ class _AppPageViewState extends ConsumerState<AppPageView> {
 
   void _tapAppbarListener() {
     final itemClicked = ref.read(pageClickNotifier).currentPage;
-
-    switch (itemClicked) {
+   switch (itemClicked) {
       case AppbarMenuPageItem.about:
         _scrollToPosition(_getWidgetYPosition(aboutSectionKey));
         break;
