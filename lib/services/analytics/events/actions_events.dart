@@ -1,4 +1,3 @@
 enum ActionsEvents {
-  appInitialized,
   clickedPDF,
 }
