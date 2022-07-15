@@ -1,0 +1,82 @@
+name: carlos_alejano_v2
+description: A new Flutter project.
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.17.1 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  flutter_localizations:
+    sdk: flutter
+
+  # firebase SDKs
+  firebase_core: ^1.19.2
+  firebase_analytics: ^9.2.0
+  firebase_crashlytics: ^2.8.5
+  # firebase_remote_config: ^2.0.12
+  # cloud_firestore: ^2.2.1
+  # firebase_storage: ^8.1.1
+
+  equatable: ^2.0.3
+  cupertino_icons: ^1.0.2
+  font_awesome_flutter: ^10.1.0
+  flutter_riverpod: ^1.0.4
+  provider: ^6.0.3
+  url_launcher: ^6.1.4
+  auto_size_text: ^3.0.0
+  timeline_tile: ^2.0.0
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^2.0.0
+  json_serializable: ^6.1.3
+  build_runner: ^2.1.11
+
+  # Waiting for this PR https://bit.ly/3tO37NG
+  gen_lang:
+    git:
+      url: https://github.com/KingWu/gen_lang
+      ref: 7ba7548
+
+
+flutter:
+
+  uses-material-design: true
+
+  assets:
+    - images/
+
+  # An image asset can refer to one or more resolution-specific "variants", see
+  # https://flutter.dev/assets-and-images/#resolution-aware
+
+  # For details regarding adding assets from package dependencies, see
+  # https://flutter.dev/assets-and-images/#from-packages
+
+  # To add custom fonts to your application, add a fonts section here,
+  # in this "flutter" section. Each entry in this list should have a
+  # "family" key with the font family name, and a "fonts" key with a
+  # list giving the asset and other descriptors for the font. For
+  # example:
+  # fonts:
+  #   - family: Schyler
+  #     fonts:
+  #       - asset: fonts/Schyler-Regular.ttf
+  #       - asset: fonts/Schyler-Italic.ttf
+  #         style: italic
+  #   - family: Trajan Pro
+  #     fonts:
+  #       - asset: fonts/TrajanPro.ttf
+  #       - asset: fonts/TrajanPro_Bold.ttf
+  #         weight: 700
+  #
+  # For details regarding fonts from package dependencies,
+  # see https://flutter.dev/custom-fonts/#from-packages

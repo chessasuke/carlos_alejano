@@ -1,0 +1,16 @@
+{
+
+  "aboutTitle": "About",
+  "aboutContent": "About",
+  "profileCardName": "Carlos Hevia Alejano",
+  "profileCardPosition": "Software Engineer",
+  "profileCardLocation": "Houston, TX",
+
+"aboutHello": "Hi, Carlos here",
+"aboutDescription": "I completed my Bachelor in Computer Science at the University of Texas Rio Grande Valley in 2019. Then I moved to Dallas to study for a Master of Science in Software Engineering at the University of Texas at Dallas. After graduation, I landed a couple of jobs working on Flutter, the technology that I enjoy the most working on.\n\nI am also a chess Grandmaster, before coming to the US in 2015, I was a professional chess player and part of the Cuban National Chess Team. In my free time (if I am not experimenting with Flutter or playing chess) I play racquetball or watch anime.",
+
+"resumeOpenPdf": "Open PDF Resume",
+"resumeExperienceTitle": "Experience"
+
+
+}
