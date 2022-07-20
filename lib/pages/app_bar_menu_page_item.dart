@@ -1,4 +1,4 @@
-import 'package:carlos_alejano_v2/common/utils/extensions.dart';
+import 'package:carlos_alejano_v2/utils/extensions.dart';
 
 enum AppbarMenuPageItem {
   about,

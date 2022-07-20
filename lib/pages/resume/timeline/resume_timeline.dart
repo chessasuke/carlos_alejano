@@ -2,8 +2,8 @@ import 'package:carlos_alejano_v2/common/constants/app_colors.dart';
 import 'package:carlos_alejano_v2/common/constants/display_properties.dart';
 import 'package:carlos_alejano_v2/common/constants/till_remote_config_is_set.dart';
 import 'package:carlos_alejano_v2/common/text/text_style.dart';
-import 'package:carlos_alejano_v2/common/utils/extensions.dart';
 import 'package:carlos_alejano_v2/generated/i18n.dart';
+import 'package:carlos_alejano_v2/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 

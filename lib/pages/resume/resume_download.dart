@@ -1,11 +1,10 @@
 import 'package:carlos_alejano_v2/common/constants/app_colors.dart';
 import 'package:carlos_alejano_v2/common/constants/till_remote_config_is_set.dart';
 import 'package:carlos_alejano_v2/common/text/text_style.dart';
-import 'package:carlos_alejano_v2/common/utils/utils.dart';
 import 'package:carlos_alejano_v2/generated/i18n.dart';
 import 'package:carlos_alejano_v2/services/analytics/events/actions_events.dart';
 import 'package:carlos_alejano_v2/services/analytics/models/event.dart';
-import 'package:carlos_alejano_v2/services/analytics/providers/analytics_provider.dart';
+import 'package:carlos_alejano_v2/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -16,10 +15,7 @@ class ResumeDownload extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return InkWell(
       hoverColor: Colors.transparent,
-      onTap: () async {
-        _trackResumeDownload(event: Event(name: ActionsEvents.clickedPDF.name), ref: ref);
-        await Utils.launchURL(TillRemoteConfigIsSet.pdfResumeLink);
-      },
+      onTap: () => _onTap(ref),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -40,7 +36,9 @@ class ResumeDownload extends ConsumerWidget {
     );
   }
 
-  void _trackResumeDownload({required Event event, required WidgetRef ref}) {
-    ref.read(analyticsProvider).trackEvent(event);
+  void _onTap(WidgetRef ref) async {
+    Utils.trackEvent(
+        event: Event(name: ActionsEvents.clickedPDF.name), ref: ref);
+    await Utils.launchURL(TillRemoteConfigIsSet.pdfResumeLink);
   }
 }
