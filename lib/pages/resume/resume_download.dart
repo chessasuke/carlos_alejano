@@ -17,7 +17,7 @@ class ResumeDownload extends ConsumerWidget {
     return InkWell(
       hoverColor: Colors.transparent,
       onTap: () async {
-        _trackEnableNotifications(event: Event(name: ActionsEvents.clickedPDF.name), ref: ref);
+        _trackResumeDownload(event: Event(name: ActionsEvents.clickedPDF.name), ref: ref);
         await Utils.launchURL(TillRemoteConfigIsSet.pdfResumeLink);
       },
       child: Row(
@@ -40,7 +40,7 @@ class ResumeDownload extends ConsumerWidget {
     );
   }
 
-  void _trackEnableNotifications({required Event event, required WidgetRef ref}) {
+  void _trackResumeDownload({required Event event, required WidgetRef ref}) {
     ref.read(analyticsProvider).trackEvent(event);
   }
 }
